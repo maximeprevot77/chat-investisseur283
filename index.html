@@ -164,7 +164,9 @@
   });
 
 
-  async function sendMessage()  try { {
+  async function sendMessage()  try { {input.value = "";  } catch (error) {
+    alert("Erreur Firebase : " + error.message);
+  }
 
     const text = input.value.trim();
 
