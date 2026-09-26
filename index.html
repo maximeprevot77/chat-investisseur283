@@ -1,135 +1,149 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Chat</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Chat</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .chat {
-            max-width: 600px;
-            height: 100vh;
-            margin: auto;
-            background: white;
-            display: flex;
-            flex-direction: column;
-        }
+    .chat {
+      width: 100%;
+      max-width: 500px;
+      height: 100vh;
+      max-height: 800px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .header {
-            background: #075e54;
-            color: white;
-            padding: 18px;
-            font-size: 22px;
-            font-weight: bold;
-        }
+    .header {
+      background: #6c4cff;
+      color: white;
+      padding: 18px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
 
-        .messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-        }
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
 
-        .message {
-            background: #dcf8c6;
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            max-width: 80%;
-            margin-left: auto;
-        }
+    .message {
+      background: #eeeeee;
+      padding: 12px 15px;
+      border-radius: 18px;
+      margin-bottom: 10px;
+      max-width: 80%;
+    }
 
-        .message.bot {
-            background: #eeeeee;
-            margin-left: 0;
-        }
+    .message.me {
+      background: #6c4cff;
+      color: white;
+      margin-left: auto;
+    }
 
-        .input-area {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #ddd;
-            gap: 8px;
-        }
+    .input-area {
+      display: flex;
+      padding: 12px;
+      border-top: 1px solid #ddd;
+      gap: 8px;
+    }
 
-        input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            font-size: 16px;
-        }
+    input {
+      flex: 1;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      font-size: 16px;
+      outline: none;
+    }
 
-        button {
-            border: none;
-            background: #075e54;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 20px;
-            font-size: 16px;
-        }
-    </style>
+    button {
+      border: none;
+      background: #6c4cff;
+      color: white;
+      padding: 0 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="chat">
+  <div class="chat">
 
     <div class="header">
-        💬 Mon Chat
+      💬 Mon Chat
     </div>
 
     <div class="messages" id="messages">
-        <div class="message bot">
-            Bonjour 👋 Bienvenue sur mon chat !
-        </div>
+      <div class="message">
+        👋 Bienvenue dans le chat !
+      </div>
     </div>
 
     <div class="input-area">
-        <input 
-            type="text" 
-            id="messageInput" 
-            placeholder="Écrire un message..."
-        >
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Écris un message..."
+      >
 
-        <button onclick="sendMessage()">
-            Envoyer
-        </button>
+      <button onclick="sendMessage()">
+        Envoyer
+      </button>
     </div>
 
-</div>
+  </div>
 
-<script>
-function sendMessage() {
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("messageInput");
+      const messages = document.getElementById("messages");
 
-    const input = document.getElementById("messageInput");
-    const messages = document.getElementById("messages");
+      const text = input.value.trim();
 
-    const text = input.value.trim();
-
-    if (text === "") {
+      if (text === "") {
         return;
+      }
+
+      const message = document.createElement("div");
+      message.className = "message me";
+      message.textContent = text;
+
+      messages.appendChild(message);
+
+      input.value = "";
+
+      messages.scrollTop = messages.scrollHeight;
     }
 
-    const message = document.createElement("div");
-    message.className = "message";
-    message.textContent = text;
-
-    messages.appendChild(message);
-
-    input.value = "";
-
-    messages.scrollTop = messages.scrollHeight;
-}
-</script>
+    document.getElementById("messageInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
 
 </body>
 </html>
